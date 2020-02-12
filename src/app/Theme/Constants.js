@@ -1,4 +1,4 @@
-export const Colors = {
+export const COLORS = {
   backgroundColorLinearStart: '#2a90ba',
   backgroundColorLinearEnd: '#ba6087',
   boxTopColorLinearStart: '#f4aca6',

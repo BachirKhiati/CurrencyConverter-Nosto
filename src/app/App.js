@@ -7,7 +7,9 @@ import Selectable from './Components/Selectable'
 import Loader from './Components/Loader'
 
 import CurrencyFormatter from './Utils/CurrencyFormatter'
-import { Colors, LINEAR_BACKGROUND_COLOR, LINEAR_BOX_BACKGROUND_COLOR } from './Theme/Colors'
+import { COLORS, LINEAR_BACKGROUND_COLOR, LINEAR_BOX_BACKGROUND_COLOR } from './Theme/Constants'
+import Logo from './Assets/logo-nosto.svg'
+import { GET_HEADER, POST_HEADER } from './Api/Fetch'
 
 class Item extends PureComponent {
   render () {
@@ -59,8 +61,6 @@ class App extends PureComponent {
 
   }
 
-
-
   startTimer (type) {
     if (this.timer[type]) this.stopInterval(type)
     this.timer[type] = setInterval(() => this.setState({ [type]: false }), 300)
@@ -74,14 +74,9 @@ class App extends PureComponent {
     this.setState({ ...this.initState })
   }
 
-  componentDidMount () {
-    fetch('/currencies', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }).then(response => {
+  componentDidMount() {
+    fetch('/currencies', GET_HEADER
+    ).then(response => {
       return response.json()
     }).then(data => {
       this.setState({ currencies: data })
@@ -113,12 +108,7 @@ class App extends PureComponent {
     this.setState({ loading: true })
     fetch('/convert', {
       method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'csrf-token': csrfToken,
-        'x-xsrf-token': csrfToken,
-        'Content-Type': 'application/json'
-      },
+      headers: POST_HEADER(csrfToken),
       body: JSON.stringify({
         'from': inputCurrency,
         'to': outputCurrency,
@@ -129,12 +119,11 @@ class App extends PureComponent {
     }).then(data => {
       let result = CurrencyFormatter.format(data.result, { currency: outputCurrency })
       this.setState({ outputValue: result, loading: false })
-    }).catch(e => this.setState({ message: 'Request Error:' + e, loading: false }))
+    }).catch(e => this.setState({ errors: 'Request Error:' + e, loading: false }))
   }
 
   handleSelection = (input, key) => {
     this.state.currencies[key] && this.setState({ [input]: this.state.currencies[key].name })
-
   }
 
   render () {
@@ -144,104 +133,103 @@ class App extends PureComponent {
       currencies,
       missingValue,
       label,
+      errors,
       missingInputCurrency,
       missingOutputCurrency,
       loading
     } = this.state
-    if (currencies.length === 0) {
-      return (
-        <div className="App" style={LINEAR_BACKGROUND_COLOR}>
-          <Loader><h3>Trying to fetch data...</h3></Loader>
-        </div>
-      )
-    }
+
+    const fetched = currencies.length !== 0
     return (
       <div className="App" style={LINEAR_BACKGROUND_COLOR}>
-        <div className="box-container">
-          <div className="box-item" style={LINEAR_BOX_BACKGROUND_COLOR}>
-            <div className="input-wrapper">
-              <input
-                id={1}
-                value={inputValue}
-                autoFocus={true}
-                placeholder={label}
-                className="input"
-                pattern="^-?[0-9]\d*\.?\d*$"
-                style={{
-                  color: !missingValue ? Colors.white : Colors.red,
-                  transition: 'all .2s ease',
-                  WebkitTransition: 'all .2s ease',
-                  MozTransition: 'all .2s ease'
-                }}
-                onChange={(e) => this.onChange('inputValue', e)}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-              />
-
-            </div>
-            <div className="drop-down-wrapper"
-                 style={{
-                   'background-color': !missingInputCurrency ? Colors.trans : Colors.boxTopColorLinearStart,
-                   transition: 'all .2s ease  max-width 1s',
-                   WebkitTransition: 'all .2s ease',
-                   MozTransition: 'all .2s ease'
-                 }}>
-              <div className="selection-wrapper"
-                   style={{
-                     height: '100%', overflowY: 'scroll'
-                   }}>
-                <Selectable class={'selectable'} onClick={(e) => this.handleSelection('inputCurrency', e)}>
-                  {currencies.map((item, i) => (
-                    <Item key={i}>
-                      <i className={'currency-symbol'}
-                         style={{ color: Colors.white }}>{getSymbolFromCurrency(item.name)}</i>
-                      <i style={{ color: Colors.white }}>{item.name}</i>
-                    </Item>
-                  ))}
-                </Selectable>
-              </div>
-            </div>
-          </div>
-          <div className="btn">
-            <button onClick={this.reset} className="reset-btn" type="reset"><p>&#x21bb;</p></button>
-            <button onClick={this.ApiPost} className="submit-btn"><p>&#8595;</p>
-              <p>&#8593;</p></button>
-          </div>
-          <div className="box-item">
-            <div className="input-wrapper">
-              <input
-                disabled={true}
-                value={outputValue}
-                placeholder={label}
-                className="input"
-                style={{ color: Colors.red }}
-              />
-            </div>
-            <div className="drop-down-wrapper"
-                 style={{
-                   'background-color': !missingOutputCurrency ? Colors.trans : Colors.boxTopColorLinearStart,
-                   transition: 'all .2s ease  max-width 1s',
-                   WebkitTransition: 'all .2s ease',
-                   MozTransition: 'all .2s ease'
-                 }}>
-              <div className="selection-wrapper" style={{ height: '100%', overflowY: 'scroll' }}>
-                <Selectable class={'selectable-output'} onClick={(e) => this.handleSelection('outputCurrency', e)}>
-                  {currencies.map((item, i) => (
-                    <Item key={i}>
-                      <i className={'currency-symbol'}
-                         style={{ color: Colors.red }}>{getSymbolFromCurrency(item.name)}</i>
-                      <i style={{ color: Colors.red }}>{item.name}</i>
-                    </Item>
-                  ))}
-                </Selectable>
-              </div>
-            </div>
-
-          </div>
-          {loading && <Loader/>}
+        <div className={"logo-header"}>
+        <img className="App-logo" alt={'logo'} src={Logo}/>
         </div>
+        {fetched ? <div className="box-container">
+            <div className="box-item" style={LINEAR_BOX_BACKGROUND_COLOR}>
+              <div className="input-wrapper">
+                <input
+                  id={1}
+                  value={inputValue}
+                  autoFocus={true}
+                  placeholder={label}
+                  className="input"
+                  pattern="^-?[0-9]\d*\.?\d*$"
+                  style={{
+                    color: !missingValue ? COLORS.white : COLORS.red,
+                    transition: 'all .2s ease',
+                    WebkitTransition: 'all .2s ease',
+                    MozTransition: 'all .2s ease'
+                  }}
+                  onChange={(e) => this.onChange('inputValue', e)}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                />
 
+              </div>
+              <div className="drop-down-wrapper"
+                   style={{
+                     backgroundColor: !missingInputCurrency ? COLORS.trans : COLORS.boxTopColorLinearStart,
+                     transition: 'all .2s ease  max-width 1s',
+                     WebkitTransition: 'all .2s ease',
+                     MozTransition: 'all .2s ease'
+                   }}>
+                <div className="selection-wrapper"
+                     style={{
+                       height: '100%', overflowY: 'scroll'
+                     }}>
+                  <Selectable className={'selectable'} onClick={(e) => this.handleSelection('inputCurrency', e)}>
+                    {currencies.map((item, i) => (
+                      <Item key={i}>
+                        <i className={'currency-symbol'}
+                           style={{ color: COLORS.white }}>{getSymbolFromCurrency(item.name)}</i>
+                        <i style={{ color: COLORS.white }}>{item.name}</i>
+                      </Item>
+                    ))}
+                  </Selectable>
+                </div>
+              </div>
+            </div>
+            <div className="btn">
+              <button onClick={this.reset} className="reset-btn" type="reset"><p>&#x21bb;</p></button>
+              <button onClick={this.ApiPost} className="submit-btn"><p>&#8595;</p>
+                <p>&#8593;</p></button>
+            </div>
+            <div className="box-item">
+              <div className="input-wrapper">
+                <input
+                  disabled={true}
+                  value={outputValue}
+                  placeholder={label}
+                  className="input"
+                  style={{ color: COLORS.red }}
+                />
+              </div>
+              <div className="drop-down-wrapper"
+                   style={{
+                     backgroundColor: !missingOutputCurrency ? COLORS.trans : COLORS.boxTopColorLinearStart,
+                     transition: 'all .2s ease  max-width 1s',
+                     WebkitTransition: 'all .2s ease',
+                     MozTransition: 'all .2s ease'
+                   }}>
+                <div className="selection-wrapper" style={{ height: '100%', overflowY: 'scroll' }}>
+                  <Selectable className={'selectable-output'} onClick={(e) => this.handleSelection('outputCurrency', e)}>
+                    {currencies.map((item, i) => (
+                      <Item key={i}>
+                        <i className={'currency-symbol'}
+                           style={{ color: COLORS.red }}>{getSymbolFromCurrency(item.name)}</i>
+                        <i style={{ color: COLORS.red }}>{item.name}</i>
+                      </Item>
+                    ))}
+                  </Selectable>
+                </div>
+              </div>
+
+            </div>
+            {loading && <Loader/>}
+          </div> : <Loader><h3>{errors}</h3></Loader>}
       </div>
+
     )
   }
 }

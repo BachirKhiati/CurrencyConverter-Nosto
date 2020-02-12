@@ -2,15 +2,13 @@ import React from 'react'
 import './../Styles/App.css'
 import Logo from './../Assets/logo.svg'
 
-function ShowDetail (props) {
+const ShowLoading = (props) => {
   return (
-    <div className="center">
-      <div className="App-logo">
-        <img alt={'logo'} src={Logo}/>
-        {props.children}
-      </div>
+    <div className="loading-container">
+      <img alt={'logo'} src={Logo}/>
+      {props.children}
     </div>
   )
 }
 
-export default ShowDetail
+export default ShowLoading
