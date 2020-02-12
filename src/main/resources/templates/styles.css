@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom right, #2a90ba 0%, #ba6087 100%);
+    color: #fff;
+
+}
+
+
+input {
+    outline: none !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+::placeholder {
+    color: #f4aca6;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #f4aca6;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #f4aca6;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+i {
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+/*input:hover {*/
+/*    background-color: #45a049;*/
+
+/*}*/
+.container {
+    width: 500px;
+    min-width: 500px;
+    height: 100%;
+    min-height: 500px;
+    max-height: 1000px;
+    margin: auto;
+    user-select: none;
+}
+
+.header {
+    text-align: center;
+    font-size: 100px;
+    padding: 1.75rem;
+}
+
+.box {
+    position: relative;
+    top: 10%;
+    height: 80%;
+
+}
+
+.up-box {
+    /*border-radius: 20px;*/
+    background: linear-gradient(to bottom right, #f4aca6 0%, #ee5e4f 100%);
+    height: 50%;
+    text-align: center;
+    padding: 2rem 0 2rem 0;
+}
+
+.down-box {
+    /*border-radius: 20px;*/
+    background-color: rgb(255, 255, 255);
+    height: 50%;
+    text-align: center;
+    padding: 2rem 0 2rem 0;
+}
+
+.header h1 {
+    font-size: 3.25rem;
+}
+
+.currency-box-up, .currency-box-down {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    padding: 1.75rem;
+}
+
+.currency-box1 {
+    display: flex;
+    width: 70%;
+    /*background: #0bb1ba;*/
+    justify-content: center;
+    align-items: center;
+}
+
+.currency-box2 {
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    /*background: #ba1e3d*/
+}
+
+.input-value-up, .input-value-down {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    height: 7rem;
+    width: 100%;
+    font-size: 6.25rem;
+    background-position: center bottom;
+    background-size: calc(100% - 5px) 2px;
+    background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255));
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-color: transparent;
+    text-shadow: transparent;
+}
+
+.input-value-down {
+    background-image: linear-gradient(to right, #ee5e4f, #ee5e4f);
+    color: #ee5e4f;
+}
+
+.arrow-up {
+    border: solid #ffffff;
+    border-width: 0 5px 5px 0;
+}
+
+.arrow-down {
+    border: solid #ee5e4f;
+    border-width: 0 5px 5px 0;
+}
+
+.dropBtnTop, .dropBtnBottom {
+    background: transparent;
+    color: white;
+    padding: 16px;
+    font-size: 1.75rem;
+    border: none;
+}
+
+.dropBtnBottom {
+    color: #ee5e4f;
+}
+
+.dropdown {
+    background-color: rgba(225, 225, 225, 0.33);
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    display: inline-block;
+}
+
+.dropdown-content-up, .dropdown-content-down {
+    display: none;
+    position: absolute;
+    top: -20%;
+    background-color: rgba(225, 225, 225, 0.13);
+    min-width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content-up a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content-down a {
+    color: #ee5e4f;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content-up a:hover {
+    background-color: rgba(225, 225, 225, 0.33);
+}
+
+.dropdown-content-down a:hover {
+    background-color: rgba(225, 225, 225, 0.33);
+}
+
+.dropdown:hover {
+    background-color: transparent;
+}
+
+.dropdown:hover .dropdown-content-up {
+    display: block;
+}
+
+.dropdown:hover .dropdown-content-down {
+    display: block;
+}
+
+.dropdown:hover .dropBtnTop {
+    background-color: transparent;
+    color: transparent;
+}
+
+.dropdown:hover .dropBtnBottom {
+    background-color: transparent;
+    color: transparent;
+}
+
+.dropdown:hover .arrow-down {
+    border: transparent;
+}
+
+.dropdown:hover .arrow-up {
+    border: transparent;
+}
+
+.date {
+    background-color: #222;
+    text-align: right;
+    font-size: 0.75rem;
+    padding: 0.75rem 2rem 0.75rem 0;
+}
+
+.btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+
+.btn p {
+    color: #ee5e4f;;
+    height: 60px;
+    font-size: 3rem;
+}
+
+.submit-btn {
+    position: absolute;
+    top: -50px;
+    display: flex;
+    background-color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    height: 6rem;
+    width: 18%;
+    border-color: transparent;
+    text-shadow: transparent;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+}
+
+.reset-btn {
+    position: absolute;
+    top: -45px;
+    right: 10px;
+    height: 5rem;
+    width: 5rem;
+    border-color: transparent;
+    text-shadow: transparent;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 2.5rem;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+
+@media (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    ul.currencies {
+        height: calc(100vh - 83px - 34px - 51px);
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .flag {
+        width: 3rem;
+        height: 2rem;
+    }
+
+    .info .input span {
+        font-size: 1.25rem;
+        width: 3.5rem;
+    }
+
+    .info .input input {
+        font-size: 1.25rem;
+        width: 76%;
+    }
+
+    .info .currency-name {
+        margin-left: 3.5rem;
+    }
+
+    .info .base-currency-rate {
+        margin-left: 3.5rem;
+    }
+
+    ul.add-currency-list {
+        bottom: 48px;
+        height: calc(100vh - 80px - 51px);
+    }
+
+    .add-currency-btn i {
+        left: 25%;
+        top: 0.65rem;
+    }
+}
