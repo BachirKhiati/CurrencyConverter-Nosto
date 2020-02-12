@@ -17,20 +17,11 @@ class Item extends PureComponent {
 
 class App extends PureComponent {
 
-  static defaultProps = {
-    id: 0,
-    locked: false,
-    focused: false,
-    value: '0',
-    error: '',
-    label: '0',
-    type: 'tel',
-  }
-
   constructor (props) {
     super(props)
     const { cookies } = props
     this.initState = {
+      label: '0',
       inputValue: '',
       outputValue: '',
     }
@@ -58,6 +49,17 @@ class App extends PureComponent {
     }
     this.setState({ [input]: e.target.value })
   }
+
+  onFocus = (blur) => {
+    this.setState({ label: ''})
+  }
+
+  onBlur = (blur) => {
+    if(!this.state.inputValue.length)  this.setState({ label:  '0'})
+
+  }
+
+
 
   startTimer (type) {
     if (this.timer[type]) this.stopInterval(type)
@@ -141,11 +143,11 @@ class App extends PureComponent {
       outputValue,
       currencies,
       missingValue,
+      label,
       missingInputCurrency,
       missingOutputCurrency,
       loading
     } = this.state
-    const { label } = this.props
     if (currencies.length === 0) {
       return (
         <div className="App" style={LINEAR_BACKGROUND_COLOR}>
@@ -172,6 +174,8 @@ class App extends PureComponent {
                   MozTransition: 'all .2s ease'
                 }}
                 onChange={(e) => this.onChange('inputValue', e)}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
               />
 
             </div>

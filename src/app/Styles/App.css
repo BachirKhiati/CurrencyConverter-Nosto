@@ -132,7 +132,8 @@ ul {
 
 
 .selectable, .selectable-output {
-    padding-bottom: 10px;
+     cursor: pointer;
+     padding-bottom: 10px;
 }
 
 
