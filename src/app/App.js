@@ -131,13 +131,11 @@ class App extends PureComponent {
   }
 
   handleSelection = (input, key) => {
-    console.log('you selected the following keys', key)
     this.state.currencies[key] && this.setState({ [input]: this.state.currencies[key].name })
 
   }
 
   render () {
-    console.log(this.state)
     const {
       inputValue,
       outputValue,
