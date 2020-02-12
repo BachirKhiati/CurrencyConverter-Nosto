@@ -7,6 +7,8 @@ import com.nosto.currencyconvertor.models.CurrencyConverter;
 import com.nosto.currencyconvertor.models.ExchangeOutput;
 import com.nosto.currencyconvertor.repositories.CurrencyExchangeRateRepository;
 import com.nosto.currencyconvertor.repositories.CurrencyRepository;
+import io.github.sercasti.tracing.core.Tracing;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,9 @@ import java.util.List;
 
 @Service
 public class CurrencyService {
+
+    @Autowired
+    private Tracing tracing;
 
     public CurrencyRepository currencyRepository;
     public CurrencyExchangeRateRepository currencyExchangeRateRepository;
@@ -60,6 +65,10 @@ public class CurrencyService {
         return currencyExchangeRateListList;
     }
 
+
+    //##########################################
+    // fetching locals from BE based on the currency and format the result
+    // ##########################################
 //    private String getLocale(String strCode, double value) {
 //        for (Locale locale : NumberFormat.getAvailableLocales()) {
 //            String code = NumberFormat.getCurrencyInstance(locale).getCurrency().getCurrencyCode();

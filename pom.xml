@@ -83,6 +83,11 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.sercasti</groupId>
+            <artifactId>spring-httpserver-timings</artifactId>
+            <version>0.0.3</version>
+        </dependency>
     </dependencies>
 
 

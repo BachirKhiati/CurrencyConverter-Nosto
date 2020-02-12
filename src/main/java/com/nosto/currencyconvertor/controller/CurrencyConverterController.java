@@ -5,6 +5,7 @@ import com.nosto.currencyconvertor.entities.CurrencyExchangeRate;
 import com.nosto.currencyconvertor.models.CurrencyConverter;
 import com.nosto.currencyconvertor.models.ExchangeOutput;
 import com.nosto.currencyconvertor.services.CurrencyService;
+import io.github.sercasti.tracing.Traceable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,17 +28,20 @@ public class CurrencyConverterController {
     }
 
     @GetMapping(value = "/currencies", produces = {"application/json"})
+    @Traceable
     public ResponseEntity<List<Currency>> getAllCurrencies() {
         return new ResponseEntity<>(this.currencyService.getCurrencies(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/rates", produces = {"application/json"})
+    @Traceable
     public ResponseEntity<List<CurrencyExchangeRate>> getRates() {
         return new ResponseEntity<>(this.currencyService.getRates(), HttpStatus.OK);
     }
 
 
     @PostMapping(value = "/convert", produces = {"application/json"})
+    @Traceable
     public ResponseEntity<ExchangeOutput> currencyConverter(@Valid @RequestBody CurrencyConverter currencyConverter) {
         return new ResponseEntity<>(this.currencyService.convert(currencyConverter), HttpStatus.OK);
     }
