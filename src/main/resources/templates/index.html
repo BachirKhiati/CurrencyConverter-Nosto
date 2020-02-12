@@ -1,81 +1,15 @@
-<html lang="en-US" xmlns:th="https://www.thymeleaf.org">
-<link href="styles.css"
-      rel="stylesheet"
-      type="text/css"/>
-<head>
-    <title>Currency Converter</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ReactJS + Spring Data REST</title>
+    <link href="/main.css" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
-    <div class="box">
-        <form
-                method="post"
-                th:object="${index}">
-            <div class="up-box">
-                <header><h1>Currency</h1></header>
-                <div class="currency-box-up">
-                    <!--                <input class="input">-->
-                    <div class="currency-box1">
-                        <label>
-                            <input
-                                    autofocus class="input-value-up"
 
-                                    placeholder="0"
-                                    type="number">
-                            <!--th:field="*{currentValue}"-->
-                        </label>
-                    </div>
-                    <div class="currency-box2">
-                        <div class="dropdown" th:field="*{currentCurrency}">
-                            <button class="dropBtnTop">EUR</button>
-                            <i class="arrow-up"></i>
-                            <div class="dropdown-content-up">
-                                <a href="#">Link 1</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div id="react"></div>
 
-            <div class="btn">
-                <button class="submit-btn"><p>&#8595;</p>
-                    <p>&#8593;</p></button>
-                <button class="reset-btn" type="reset"><p>&#x21bb;</p></button>
-            </div>
-            <div class="down-box">
-                <div class="currency-box-down">
-                    <div class="currency-box1">
-                        <label>
-                            <input
-                                    class="input-value-down" placeholder="0" type="number">
-                        </label>
-                        th:field="*{newValue}"
-                    </div>
-                    <div class="currency-box2">
-                        <div
-                                class="dropdown"
-                                th:field="*{newCurrency}">
-                            <button class="dropBtnBottom">USD</button>
-                            <i class="arrow-down"></i>
-                            <div class="dropdown-content-down">
-                                <a href="#">Link 1</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<script src="built/bundle.js"></script>
 
-        </form>
-
-    </div>
-
-    <!--    <div class="date"></div>-->
-    <!--    <ul class="currencies"></ul>-->
-    <!--    <button class="add-currency-btn"><i class="fas fa-long-arrow-alt-left"></i>Add Currency</button>-->
-    <!--    <ul class="add-currency-list"></ul>-->
-</div>
 </body>
-
 </html>
-

@@ -17,6 +17,7 @@ class ConfigDevelopment extends WebSecurityConfigurerAdapter {
         http.requiresChannel().anyRequest().requiresInsecure().and()
                 .authorizeRequests()
                 .antMatchers("/**/*.{js,html,css}").permitAll()
+                .antMatchers("/built/**", "/main.css").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .permitAll()
                 .and()

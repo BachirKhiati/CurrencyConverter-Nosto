@@ -21,6 +21,7 @@ class ConfigProduction extends WebSecurityConfigurerAdapter {
                 .requiresSecure().and()
                 .authorizeRequests()
                 .antMatchers("/**/*.{js,html,css}").permitAll()
+                .antMatchers("/built/**", "/main.css").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .permitAll()
                 .and()

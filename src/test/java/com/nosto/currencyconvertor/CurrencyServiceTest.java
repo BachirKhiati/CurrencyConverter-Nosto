@@ -7,6 +7,8 @@ import com.nosto.currencyconvertor.models.ExchangeOutput;
 import com.nosto.currencyconvertor.repositories.CurrencyExchangeRateRepository;
 import com.nosto.currencyconvertor.repositories.CurrencyRepository;
 import com.nosto.currencyconvertor.services.CurrencyService;
+import io.github.sercasti.tracing.core.Metric;
+import io.github.sercasti.tracing.core.Tracing;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,10 +16,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.ZonedDateTime;
 import java.util.*;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 
 
 @ExtendWith(SpringExtension.class)
@@ -26,30 +35,37 @@ import java.util.*;
 public class CurrencyServiceTest {
     @Mock
     CurrencyRepository currencyRepository;
+
     @Mock
     CurrencyExchangeRateRepository currencyExchangeRateRepository;
+
+    @Mock
+    Tracing tracing;
+
+
     private String basePath = "http://localhost:8080/convert";
+
     @InjectMocks
     private CurrencyService currencyService;
 
 
     @BeforeEach
     public void setup() {
-        currencyService = new CurrencyService(currencyRepository, currencyExchangeRateRepository);
+        MockitoAnnotations.initMocks(this);
+        currencyService = new CurrencyService(currencyRepository, currencyExchangeRateRepository, tracing);
+        Mockito.when(tracing.start("getRatesValueFromRepoDuration")).thenReturn(new Metric("test", "test"));
+        Mockito.when(tracing.start("RateConversionDuration")).thenReturn(new Metric("test2", "test2"));
+        Mockito.when(tracing.start("getCurrenciesFromRepoDuration")).thenReturn(new Metric("test3", "test3"));
+        Mockito.when(tracing.start("getRatesFromRepoDuration")).thenReturn(new Metric("test4", "test4"));
+
     }
 
-
-//    @Test
-//    public void whenIdIsNull_thenExceptionIsThrown() {
-//        Assertions.assertThrows(InvalidArgumentException.class, () -> Optional
-//                .of(currencyExchangeRateRepository.findById(null))
-//                .orElseThrow(InvalidArgumentException::new));
-//    }
 
 
     @Test
     public void getCurrenciesTestEmpty() {
         Mockito.when(currencyRepository.findAll()).thenReturn(Collections.emptyList());
+
         List<Currency> currencies = currencyService.getCurrencies();
         Assertions.assertTrue(currencies.isEmpty());
     }
