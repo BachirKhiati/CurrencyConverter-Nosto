@@ -43,6 +43,16 @@ The Currency Converter application has 3 screens -
 - All Frontend side is handled by Maven, no extra installs needed.
 
 
+## Logic
+
+- The Backend request the currencies from https://exchangeratesapi.io/ and save the currencies available and rates.
+- when the client access the site: Frontend request the available currencies and display them to the user formatted with a symbol based on each Currency.
+- The client needs to enter the value, current and target currency to be a valid request.
+- Backend validate the API request and convert the currencies and return the final value.
+- At first, I was formating the result in Backend, but I changed it to do so from the Frontend using a custom function.
+- The returned value is formatted based on the target currecny and displayed.
+
+
 Running the application
 ---
 **Prerequisites**
