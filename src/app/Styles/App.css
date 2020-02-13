@@ -123,7 +123,7 @@ button:hover p {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
-.input {
+.input, .output {
     margin: 20px;
     font-size: 50px;
     width: 100%;
@@ -139,6 +139,11 @@ button:hover p {
 .input:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(244, 171, 165, 0.53) 0%, rgba(255, 255, 255, 0.05) 100%)
+}
+
+.output:hover {
+    cursor: pointer;
+    background: transparent;
 }
 
 .selection-wrapper::-webkit-scrollbar {

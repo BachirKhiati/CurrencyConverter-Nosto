@@ -201,7 +201,7 @@ class App extends PureComponent {
                   disabled={true}
                   value={outputValue}
                   placeholder={label}
-                  className="input"
+                  className="output"
                   style={{ color: COLORS.red }}
                 />
               </div>
