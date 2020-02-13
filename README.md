@@ -70,7 +70,7 @@ API
 		
 2. Exchange Rates values:
     
-		POST  /rates
+		GET  /rates
 
 3. Conversion:
     
