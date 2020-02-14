@@ -181,7 +181,6 @@ button:hover p {
     padding-left: 15px;
     text-align: center;
     font-weight: 600;
-
 }
 
 .selected:hover {
@@ -212,8 +211,8 @@ button:hover p {
 
 .btn p {
     color: #ee5e4f;;
-    font-size: 3rem;
-    margin: 0;
+    font-size: 2.5rem;
+    margin: auto;
 }
 
 .submit-btn {
@@ -222,13 +221,14 @@ button:hover p {
     background-color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     color: white;
-
-    height: 90px;
-    width: 90px;
+    min-height: 1vh;
+    min-width: 1vh;
+    height: 9vh;
+    width: 9vh;
     border-color: transparent;
     text-shadow: transparent;
     justify-content: space-around;
-    border-radius: 20px;
+    border-radius: 2vh;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
@@ -236,13 +236,15 @@ button:hover p {
 .reset-btn {
     position: relative;
     left: 0;
-    height: 70px;
-    width: 70px;
+    height: 9vh;
+    width: 9vh;
+    min-height: 1vh;
+    min-width: 1vh;
     border-color: transparent;
     text-shadow: transparent;
     justify-content: space-around;
     align-items: center;
-    border-radius: 2.5rem;
+    border-radius: 4.5vh;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
